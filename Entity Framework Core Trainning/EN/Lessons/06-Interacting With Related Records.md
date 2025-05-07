@@ -1,7 +1,18 @@
 # Interacting With Related Records
 
-- Section Overview
-    - After mastering model creation, querying, data modification, and schema management with migrations, today we will focus on how to **interact with related records** in the database. This is the core of data modeling in the real world.
+- **Section Overview**
+    - In this section, we will learn how to interact with related records in the database, a crucial aspect of modeling real-world data relationships.
+    - Main topics include:
+        - Understanding different types of relationships in database and EF Core
+        - Setting up and managing One-to-Many relationships
+        - Viewing and managing diagrams with EF Core Tools
+        - Setting up and managing Many-to-Many relationships
+        - Setting up and managing One-to-One relationships
+    - The objectives of this section are to help you:
+        - Understand and implement different types of relationships in EF Core
+        - Use Navigation Properties and Foreign Keys effectively
+        - Manage relationships between entities
+        - Apply best practices for relationship management
 - Database Relationships and Entity Framework Core
     - **In Database:** Relationships between tables are typically represented by **Foreign Keys (FK)**. A column (or multiple columns) in one table (dependent table) references the Primary Key (PK) of another table (principal table).
     - **In EF Core:** These relationships are represented in C# code using:

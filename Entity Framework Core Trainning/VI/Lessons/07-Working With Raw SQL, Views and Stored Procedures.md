@@ -2,7 +2,7 @@
 
 **Working With Raw SQL, Views and Stored Procedures**
 
-- Section Overview
+- **Section Overview**
     
     Chúng ta đã đi qua cách EF Core giúp trừu tượng hóa việc tương tác với database thông qua LINQ và các mô hình đối tượng. 
     

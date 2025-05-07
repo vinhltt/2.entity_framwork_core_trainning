@@ -1,7 +1,21 @@
 # Using Entity Framework Core to Query a Database
 
-- Section Overview
-- Adding Verbose Logging to EF Core’s Workload
+- **Section Overview**
+    - In this section, we will learn how to use Entity Framework Core to efficiently query data from a database.
+    - Main topics include:
+        - How to enable logging to monitor generated SQL statements
+        - Configuring and managing connection strings securely
+        - Using LINQ to write queries
+        - Basic and advanced querying methods
+        - Understanding synchronous vs asynchronous operations
+        - Performance optimization techniques like AsNoTracking and Projections
+        - Understanding IQueryable and avoiding performance issues
+    - The goals of this section are to help you:
+        - Write efficient LINQ queries
+        - Understand and avoid common performance issues
+        - Apply best practices when working with EF Core
+        - Debug and optimize database queries
+- Adding Verbose Logging to EF Core's Workload
     - **Why Logging?**
         - **Understand EF Core:** See exactly what SQL statements EF Core generates from your LINQ queries.
         - **Debugging:** Identify slow queries, inefficient queries, or queries returning unexpected results.
@@ -21,7 +35,7 @@
         
         - `LogLevel.Information` is usually enough to see generated SQL. Other levels (`Debug`, `Trace`) provide more details.
         - **Warning:** `EnableSensitiveDataLogging()` will log all parameter values in SQL, which may expose sensitive data. **Only enable this in development.**
-    - **Result:** When the app runs and executes EF Core queries, you’ll see the corresponding SQL statements printed to the Console or Debug Output window.
+    - **Result:** When the app runs and executes EF Core queries, you'll see the corresponding SQL statements printed to the Console or Debug Output window.
 - Fix: Database Connection String Refactor
     - This is not exactly a "fix" but a best practice for managing connection strings to avoid security issues and deployment headaches.
     - **Never hardcode:** Avoid writing connection strings directly in code (e.g., in `OnConfiguring`).
@@ -85,13 +99,13 @@
     
     - **`FindAsync(keyValues)`** / **`FindAsync(keyValues, cancellationToken)`**:
         - Finds a record by **Primary Key**.
-        - **Advantage:** It will **check the DbContext’s in-memory cache first**. If the entity with that key is already loaded and tracked, it returns immediately without querying the database.
+        - **Advantage:** It will **check the DbContext's in-memory cache first**. If the entity with that key is already loaded and tracked, it returns immediately without querying the database.
         - Returns `null` if not found.
         - Always use Async if possible: `await context.Products.FindAsync(productId);`
     - **`FirstOrDefaultAsync(predicate)`**:
         - Returns the **first** record matching the filter (`predicate`).
         - Returns `null` if no record matches.
-        - Safe when you’re not sure if any record matches.
+        - Safe when you're not sure if any record matches.
         - Example: `await context.Products.FirstOrDefaultAsync(p => p.Name == "Laptop XYZ");`
     - **`SingleOrDefaultAsync(predicate)`**:
         - Returns the **single** record matching the filter.
@@ -353,7 +367,7 @@
 - Tracking Vs. No Tracking (Enhancing Performance)
     - **Change Tracking (Default):** When you query data (e.g., `context.Products.ToList()`), EF Core:
         1. Creates entity objects.
-        2. Stores a "snapshot" of these entities in the `DbContext`’s memory.
+        2. Stores a "snapshot" of these entities in the `DbContext`'s memory.
         3. Tracks any changes you make to their properties.
         4. When you call `SaveChangesAsync()`, EF Core compares the current state to the snapshot to know what `UPDATE` statements to generate.
     - **Overhead:** Storing snapshots and comparing states uses memory and CPU, especially when loading lots of data.
@@ -372,7 +386,7 @@
     - **Benefits of AsNoTracking():**
         - **Faster:** Query executes faster because it skips snapshot creation and tracking.
         - **Less memory:** No snapshot stored in `DbContext`.
-    - **When to use AsNoTracking()?** In almost all **read-only** scenarios (displaying lists, reports, API GETs that don’t need updates, etc.).
+    - **When to use AsNoTracking()?** In almost all **read-only** scenarios (displaying lists, reports, API GETs that don't need updates, etc.).
 - IQueryables vs List Types
     
     This is a **crucial concept** for understanding how EF Core works and writing efficient queries.
@@ -438,5 +452,5 @@
     9. **Consider Raw SQL Queries or Stored Procedures:** For extremely complex or highly optimized queries that LINQ cannot express, EF Core allows you to execute raw SQL (`FromSqlRaw`, `ExecuteSqlRawAsync`) or call Stored Procedures.
 - Section Review
     - Querying data is essential when working with EF Core. By understanding LINQ, query methods, the difference between `IQueryable` and `IEnumerable`, and optimization techniques like `AsNoTracking` and `Select`, you can write efficient, maintainable code and ensure good performance for your application.
-    - Take time to practice these techniques with your own project. If you have any questions, don’t hesitate to ask!
+    - Take time to practice these techniques with your own project. If you have any questions, don't hesitate to ask!
 - Section Source Code

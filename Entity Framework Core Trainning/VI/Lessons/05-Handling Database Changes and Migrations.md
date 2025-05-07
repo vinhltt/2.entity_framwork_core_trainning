@@ -2,8 +2,20 @@
 
 **Handling Database Changes and Migrations**
 
-- Section Overview
-    - Trong các phần trước, chúng ta đã học cách định nghĩa Data Models, sử dụng DbContext để truy vấn và thay đổi dữ liệu. Nhưng khi ứng dụng của em phát triển, model sẽ thay đổi - em sẽ thêm entities mới, thêm/xóa thuộc tính, thay đổi mối quan hệ... Làm thế nào để cập nhật cấu trúc (schema) của database một cách an toàn và có kiểm soát? Câu trả lời chính là **EF Core Migrations**.
+- **Section Overview**
+    - Trong section này, chúng ta sẽ tìm hiểu cách quản lý và áp dụng các thay đổi cấu trúc database một cách an toàn và có kiểm soát thông qua EF Core Migrations.
+    - Các chủ đề chính bao gồm:
+        - Tìm hiểu về EF Core Migrations và cách hoạt động
+        - Thêm entities mới và cập nhật database với migrations
+        - Sử dụng configuration files để quản lý connection strings
+        - Tạo migration scripts cho các môi trường khác nhau
+        - Hoàn tác migrations và thay đổi database
+    - Mục tiêu của section này là giúp bạn:
+        - Hiểu và sử dụng hiệu quả EF Core Migrations
+        - Quản lý các thay đổi schema database một cách an toàn
+        - Áp dụng migrations vào các môi trường khác nhau
+        - Tạo và sử dụng migration scripts
+        - Xử lý các tình huống cần hoàn tác migrations
 - Review Entity Framework Core Migrations
     
     Hãy cùng nhắc lại nhanh những điểm cốt lõi về Migrations mà chúng ta đã đề cập sơ qua:

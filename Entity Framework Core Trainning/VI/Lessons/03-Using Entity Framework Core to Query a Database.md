@@ -1,7 +1,22 @@
 # Using Entity Framework Core to Query a Database
 
-- Section Overview
-- Adding Verbose Logging to EF Core’s Workload
+- **Section Overview**
+    - Trong section này, chúng ta sẽ tìm hiểu cách sử dụng Entity Framework Core để truy vấn dữ liệu từ database một cách hiệu quả và an toàn.
+    - Các chủ đề chính bao gồm:
+        - Cấu hình logging để theo dõi và debug các câu lệnh SQL
+        - Quản lý connection string an toàn và hiệu quả
+        - Sử dụng LINQ để viết các truy vấn database
+        - Các phương thức truy vấn cơ bản và nâng cao
+        - Phân biệt và sử dụng synchronous vs asynchronous operations
+        - Các kỹ thuật tối ưu hiệu năng như AsNoTracking và Projections
+        - Hiểu và tránh các vấn đề về hiệu năng với IQueryable
+    - Mục tiêu của section này là giúp bạn:
+        - Viết được các truy vấn LINQ hiệu quả và an toàn
+        - Hiểu và tránh được các vấn đề về hiệu năng phổ biến
+        - Áp dụng các best practices khi làm việc với EF Core
+        - Debug và tối ưu hóa các truy vấn database
+        - Quản lý connection string một cách an toàn
+- Adding Verbose Logging to EF Core's Workload
     - **Tại sao cần Logging?**
         - **Hiểu EF Core:** Xem chính xác câu lệnh SQL nào được EF Core tạo ra từ LINQ query của bạn.
         - **Debugging:** Phát hiện các query chậm, query không hiệu quả, hoặc query trả về kết quả không mong muốn.

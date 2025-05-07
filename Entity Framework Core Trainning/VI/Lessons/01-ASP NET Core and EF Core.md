@@ -2,125 +2,137 @@
 
 **ASP.NET Core and EF Core**
 
-- Section Overview
-    - [ASP.NET](http://asp.net/) Core để xây dựng các ứng dụng web và API tương tác với cơ sở dữ liệu. [ASP.NET](http://asp.net/) Core được thiết kế để làm việc liền mạch với EF Core thông qua các cơ chế như Dependency Injection và Configuration.
-- How EF Core and ASP.NET Core Work
-    
-    Sự tích hợp giữa EF Core và ASP.NET Core chủ yếu dựa trên hai cơ chế cốt lõi của ASP.NET Core:
-    
-    - **Dependency Injection (DI):**
-        - ASP.NET Core có một hệ thống DI tích hợp sẵn mạnh mẽ. Thay vì bạn phải tự tạo instance của `DbContext` ở khắp nơi, bạn sẽ đăng ký (register) `DbContext` của mình với DI container.
-        - Sau đó, bất cứ khi nào một thành phần trong ứng dụng (như Controller, Service, Razor Page Model) cần dùng `DbContext`, nó chỉ cần khai báo `DbContext` đó như một tham số trong constructor. DI container sẽ tự động tạo và cung cấp (inject) một instance `DbContext` phù hợp.
-    - **`DbContext`** Lifetime (Vòng đời DbContext): Scoped
-        - Khi bạn đăng ký `DbContext` bằng phương thức `AddDbContext` (sẽ xem ở phần sau), vòng đời mặc định của nó là **Scoped**.
-        - **Scoped Lifetime** có nghĩa là: Một instance `DbContext` **mới** sẽ được tạo ra cho **mỗi một HTTP request** đến ứng dụng của bạn. Instance này sẽ được sử dụng trong suốt quá trình xử lý request đó (ví dụ: trong middleware, controller, services được gọi bởi controller đó). Khi request kết thúc, instance `DbContext` đó sẽ tự động được **dispose** (giải phóng tài nguyên).
-        - **Tại sao Scoped lại phù hợp?**
-            - Đảm bảo mỗi request có một Unit of Work riêng biệt, tránh các vấn đề về chia sẻ trạng thái hoặc lỗi tracking giữa các request khác nhau.
-            - `DbContext` không phải là thread-safe, việc giới hạn nó trong một request giúp tránh các vấn đề về đa luồng.
-    - **Configuration:**
-        - Hệ thống cấu hình của ASP.NET Core (đọc từ `appsettings.json`, environment variables, user secrets...) được sử dụng để cung cấp các thông tin cần thiết cho `DbContext`, quan trọng nhất là **connection string**.
-- Connect to the Database Context
-    
-    Đây là bước cấu hình để ASP.NET Core biết về `DbContext` của bạn và cách tạo nó.
-    
-    - **Bước 1: Cài đặt các gói NuGet cần thiết**
-        - Đảm bảo bạn đã cài đặt các gói EF Core cần thiết vào project ASP.NET Core của mình:
-            
-            ```
-            dotnet add package Microsoft.EntityFrameworkCore.Design
-            dotnet add package Microsoft.EntityFrameworkCore.SqlServer # Hoặc provider khác (Npgsql, Sqlite...)
-            # Gói Tools cần thiết cho các lệnh dotnet ef, nhưng thường được cài dưới dạng global tool hoặc đã có
-            # dotnet add package Microsoft.EntityFrameworkCore.Tools
-            ```
-            
-    - **`Bước 2: Thêm Connection String vào appsettings.json`**
-        - Mở file `appsettings.json` (và `appsettings.Development.json` nếu cần).
-        - Thêm mục `ConnectionStrings`:
-            
-            ```json
-            {
-              "Logging": { ... },
-              "AllowedHosts": "*",
-              "ConnectionStrings": {
-                "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=MyWebAppDb;Trusted_Connection=True;MultipleActiveResultSets=true"
-                // Thay bằng connection string thực tế của bạn
-              }
-            }
-            ```
-            
-    - **`Bước 3: Đăng ký DbContext với Dependency Injection (Program.cs)`**
-        - Mở file `Program.cs` (đối với .NET 6+).
-        - Tìm đến phần cấu hình services (`builder.Services...`).
-        - Sử dụng phương thức `AddDbContext` để đăng ký `DbContext` của bạn.
-            
-            ```csharp
-            using Microsoft.EntityFrameworkCore;
-            // using MyEfCoreApi.Data; // Namespace chứa ApplicationDbContext của bạn
-            // using MyEfCoreApi.Models; // Namespace chứa các model
-            
-            var builder = WebApplication.CreateBuilder(args);
-            
-            // 1. Lấy connection string từ cấu hình (appsettings.json)
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-            if (string.IsNullOrEmpty(connectionString))
-            {
-                throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            }
-            
-            // 2. Đăng ký ApplicationDbContext với DI container
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString)); // Hoặc UseNpgsql, UseSqlite...
-            
-            // Thêm các services khác (Controllers, Swagger, etc.)
-            builder.Services.AddControllers();
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            
-            var app = builder.Build();
-            
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-            
-            app.UseHttpsRedirection();
-            app.UseAuthorization();
-            app.MapControllers();
-            app.Run();
-            
-            ```
-            
-        - `AddDbContext<ApplicationDbContext>`: Đăng ký `ApplicationDbContext` với DI.
-        - `options => options.UseSqlServer(connectionString)`: Cấu hình `DbContextOptions` để sử dụng SQL Server provider và connection string đã lấy được. EF Core sẽ tự động đọc `DbContextOptions` này khi DI container tạo instance `DbContext`.
-        - Mặc định, `AddDbContext` đăng ký `DbContext` với **Scoped lifetime**.
-    
-    Bây giờ, bạn có thể inject `ApplicationDbContext` vào constructors của Controllers, Services, hoặc Razor Page Models.
-    
-    ```csharp
-    // Ví dụ trong một API Controller
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ProductsController : ControllerBase
+- **Section Overview**
+    - Trong section này, chúng ta sẽ tìm hiểu về cách ASP.NET Core và Entity Framework Core làm việc cùng nhau để xây dựng các ứng dụng web và API tương tác với cơ sở dữ liệu.
+    - Các chủ đề chính bao gồm:
+        - Tích hợp EF Core với ASP.NET Core thông qua Dependency Injection
+        - Quản lý vòng đời của DbContext trong ứng dụng web
+        - Cấu hình kết nối database trong ASP.NET Core
+        - Xử lý các lỗi phổ biến khi làm việc với EF Core trong ASP.NET Core
+    - Mục tiêu của section này là giúp bạn:
+        - Hiểu cách ASP.NET Core và EF Core tích hợp với nhau
+        - Biết cách cấu hình và sử dụng DbContext trong ứng dụng web
+        - Nắm được các best practices khi làm việc với EF Core trong ASP.NET Core
+        - Xử lý được các vấn đề thường gặp trong quá trình phát triển
+
+**How EF Core and ASP.NET Core Work**
+
+Sự tích hợp giữa EF Core và ASP.NET Core chủ yếu dựa trên hai cơ chế cốt lõi của ASP.NET Core:
+
+- **Dependency Injection (DI):**
+    - ASP.NET Core có một hệ thống DI tích hợp sẵn mạnh mẽ. Thay vì bạn phải tự tạo instance của `DbContext` ở khắp nơi, bạn sẽ đăng ký (register) `DbContext` của mình với DI container.
+    - Sau đó, bất cứ khi nào một thành phần trong ứng dụng (như Controller, Service, Razor Page Model) cần dùng `DbContext`, nó chỉ cần khai báo `DbContext` đó như một tham số trong constructor. DI container sẽ tự động tạo và cung cấp (inject) một instance `DbContext` phù hợp.
+- **`DbContext`** Lifetime (Vòng đời DbContext): Scoped
+    - Khi bạn đăng ký `DbContext` bằng phương thức `AddDbContext` (sẽ xem ở phần sau), vòng đời mặc định của nó là **Scoped**.
+    - **Scoped Lifetime** có nghĩa là: Một instance `DbContext` **mới** sẽ được tạo ra cho **mỗi một HTTP request** đến ứng dụng của bạn. Instance này sẽ được sử dụng trong suốt quá trình xử lý request đó (ví dụ: trong middleware, controller, services được gọi bởi controller đó). Khi request kết thúc, instance `DbContext` đó sẽ tự động được **dispose** (giải phóng tài nguyên).
+    - **Tại sao Scoped lại phù hợp?**
+        - Đảm bảo mỗi request có một Unit of Work riêng biệt, tránh các vấn đề về chia sẻ trạng thái hoặc lỗi tracking giữa các request khác nhau.
+        - `DbContext` không phải là thread-safe, việc giới hạn nó trong một request giúp tránh các vấn đề về đa luồng.
+- **Configuration:**
+    - Hệ thống cấu hình của ASP.NET Core (đọc từ `appsettings.json`, environment variables, user secrets...) được sử dụng để cung cấp các thông tin cần thiết cho `DbContext`, quan trọng nhất là **connection string**.
+
+**Connect to the Database Context**
+
+Đây là bước cấu hình để ASP.NET Core biết về `DbContext` của bạn và cách tạo nó.
+
+- **Bước 1: Cài đặt các gói NuGet cần thiết**
+    - Đảm bảo bạn đã cài đặt các gói EF Core cần thiết vào project ASP.NET Core của mình:
+        
+        ```
+        dotnet add package Microsoft.EntityFrameworkCore.Design
+        dotnet add package Microsoft.EntityFrameworkCore.SqlServer # Hoặc provider khác (Npgsql, Sqlite...)
+        # Gói Tools cần thiết cho các lệnh dotnet ef, nhưng thường được cài dưới dạng global tool hoặc đã có
+        # dotnet add package Microsoft.EntityFrameworkCore.Tools
+        ```
+        
+- **`Bước 2: Thêm Connection String vào appsettings.json`**
+    - Mở file `appsettings.json` (và `appsettings.Development.json` nếu cần).
+    - Thêm mục `ConnectionStrings`:
+        
+        ```json
+        {
+          "Logging": { ... },
+          "AllowedHosts": "*",
+          "ConnectionStrings": {
+            "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=MyWebAppDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+            // Thay bằng connection string thực tế của bạn
+          }
+        }
+        ```
+        
+- **`Bước 3: Đăng ký DbContext với Dependency Injection (Program.cs)`**
+    - Mở file `Program.cs` (đối với .NET 6+).
+    - Tìm đến phần cấu hình services (`builder.Services...`).
+    - Sử dụng phương thức `AddDbContext` để đăng ký `DbContext` của bạn.
+        
+        ```csharp
+        using Microsoft.EntityFrameworkCore;
+        // using MyEfCoreApi.Data; // Namespace chứa ApplicationDbContext của bạn
+        // using MyEfCoreApi.Models; // Namespace chứa các model
+        
+        var builder = WebApplication.CreateBuilder(args);
+        
+        // 1. Lấy connection string từ cấu hình (appsettings.json)
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+        if (string.IsNullOrEmpty(connectionString))
+        {
+            throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+        }
+        
+        // 2. Đăng ký ApplicationDbContext với DI container
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(connectionString)); // Hoặc UseNpgsql, UseSqlite...
+        
+        // Thêm các services khác (Controllers, Swagger, etc.)
+        builder.Services.AddControllers();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+        
+        var app = builder.Build();
+        
+        // Configure the HTTP request pipeline.
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
+        
+        app.UseHttpsRedirection();
+        app.UseAuthorization();
+        app.MapControllers();
+        app.Run();
+        
+        ```
+        
+    - `AddDbContext<ApplicationDbContext>`: Đăng ký `ApplicationDbContext` với DI.
+    - `options => options.UseSqlServer(connectionString)`: Cấu hình `DbContextOptions` để sử dụng SQL Server provider và connection string đã lấy được. EF Core sẽ tự động đọc `DbContextOptions` này khi DI container tạo instance `DbContext`.
+    - Mặc định, `AddDbContext` đăng ký `DbContext` với **Scoped lifetime**.
+
+Bây giờ, bạn có thể inject `ApplicationDbContext` vào constructors của Controllers, Services, hoặc Razor Page Models.
+
+```csharp
+// Ví dụ trong một API Controller
+[ApiController]
+[Route("api/[controller]")]
+public class ProductsController : ControllerBase
+{
+    private readonly ApplicationDbContext _context; // Inject DbContext
+
+    public ProductsController(ApplicationDbContext context) // Nhận DbContext qua constructor
     {
-        private readonly ApplicationDbContext _context; // Inject DbContext
-    
-        public ProductsController(ApplicationDbContext context) // Nhận DbContext qua constructor
-        {
-            _context = context;
-        }
-    
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
-        {
-            return await _context.Products.Include(p => p.Category).ToListAsync(); // Sử dụng DbContext
-        }
-        // ... các actions khác (POST, PUT, DELETE) ...
+        _context = context;
     }
-    
-    ```
-    
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+    {
+        return await _context.Products.Include(p => p.Category).ToListAsync(); // Sử dụng DbContext
+    }
+    // ... các actions khác (POST, PUT, DELETE) ...
+}
+
+```
+
 - Fixing EF Core Design Time Errors
     
     Khi bạn chạy các lệnh `dotnet ef` (ví dụ: `dotnet ef migrations add InitialCreate`, `dotnet ef database update`) trong môi trường ASP.NET Core, đôi khi bạn sẽ gặp lỗi. Các lệnh này cần có khả năng tạo một instance của `DbContext` để đọc cấu hình model, và chúng chạy trong một ngữ cảnh khác với ứng dụng đang chạy thực tế.

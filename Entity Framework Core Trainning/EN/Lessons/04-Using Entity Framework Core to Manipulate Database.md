@@ -1,6 +1,19 @@
 # Using Entity Framework Core to Manipulate Database
 
-- Section Overview
+- **Section Overview**
+    - In this section, we will learn how to use Entity Framework Core to manipulate data in the database.
+    - Main topics include:
+        - Understanding Tracking and change persistence in EF Core
+        - Performing basic CRUD operations (Create, Read, Update, Delete)
+        - New methods in EF Core 7+ for performance optimization
+        - Managing entity states
+        - Handling bulk operations
+    - The goals of this section are to help you:
+        - Understand and effectively use the Change Tracker
+        - Perform data operations safely and efficiently
+        - Apply best practices when working with the database
+        - Optimize performance for data operations
+
 - Understanding Tracking and Saving Changes
     
     This is the foundational mechanism of EF Core when working with data.

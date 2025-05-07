@@ -2,6 +2,21 @@
 
 **Getting Started with Entity Framework Core**
 
+- **Section Overview**
+    - Trong section này, chúng ta sẽ tìm hiểu những kiến thức cơ bản để bắt đầu làm việc với Entity Framework Core, một công cụ mạnh mẽ và phổ biến trong hệ sinh thái .NET để làm việc với cơ sở dữ liệu.
+    - Các chủ đề chính bao gồm:
+        - Tìm hiểu về Data Models và cách tạo chúng với EF Core
+        - Hiểu về Database Context và vai trò của nó
+        - Cấu hình kết nối database và chọn provider phù hợp
+        - Làm quen với Code First Development và Migrations
+        - Thiết lập project Console App để thực hành EF Core
+    - Mục tiêu của section này là giúp bạn:
+        - Nắm được các khái niệm cơ bản về Data Models và Database Context
+        - Biết cách cấu hình và kết nối database với EF Core
+        - Hiểu được quy trình Code First Development
+        - Có thể tạo và quản lý Migrations
+        - Thiết lập được môi trường phát triển với EF Core
+
 Đây là một công cụ cực kỳ mạnh mẽ và phổ biến trong hệ sinh thái .NET để làm việc với cơ sở dữ liệu. 
 
 - What are Data Models?

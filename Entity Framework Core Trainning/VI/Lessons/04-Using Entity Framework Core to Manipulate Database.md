@@ -1,6 +1,20 @@
 # Using Entity Framework Core to Manipulate Database
 
-- Section Overview
+- **Section Overview**
+    - Trong section này, chúng ta sẽ tìm hiểu cách sử dụng Entity Framework Core để thao tác với dữ liệu trong database một cách hiệu quả và an toàn.
+    - Các chủ đề chính bao gồm:
+        - Hiểu về cơ chế Tracking và lưu thay đổi trong EF Core
+        - Thực hiện các thao tác CRUD cơ bản (Create, Read, Update, Delete)
+        - Các phương thức mới trong EF Core 7+ để tối ưu hiệu năng
+        - Quản lý trạng thái của entities
+        - Xử lý các thao tác hàng loạt (bulk operations)
+    - Mục tiêu của section này là giúp bạn:
+        - Hiểu và sử dụng hiệu quả Change Tracker
+        - Thực hiện các thao tác dữ liệu một cách an toàn và hiệu quả
+        - Áp dụng các best practices khi thao tác với database
+        - Tối ưu hiệu năng cho các thao tác dữ liệu
+        - Xử lý các thao tác hàng loạt một cách hiệu quả
+
 - Understanding Tracking and Saving Changes
     
     Đây là cơ chế nền tảng của EF Core khi làm việc với dữ liệu.

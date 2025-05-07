@@ -2,10 +2,21 @@
 
 **Additional Features and Considerations**
 
-- Section Overview
-    
-    After mastering the foundational concepts of modeling, querying, data changes, migrations, working with related data, and raw SQL, today we will explore some advanced features and other important considerations when working with EF Core. These features help solve specific problems and build better applications.
-    
+- **Section Overview**
+    - In this section, we will explore advanced features and important considerations when working with Entity Framework Core to build better applications.
+    - Main topics include:
+        - Processing data before saving changes
+        - Working with SQL Server Temporal Tables
+        - Validating data with Data Annotations
+        - Configuring models with Pre-convention
+        - Other advanced features of EF Core
+    - The objectives of this section are to help you:
+        - Understand and apply advanced features of EF Core
+        - Automate data processing operations
+        - Manage data change history
+        - Ensure data integrity
+        - Implement advanced data validation and configuration
+
 - Manipulate Entries Before Saving Changes
     
     Sometimes, you want to automatically perform certain actions right before changes are saved to the database. A common example is automatically updating `CreatedAt` and `UpdatedAt` columns.

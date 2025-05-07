@@ -2,6 +2,21 @@
 
 **Getting Started with Entity Framework Core**
 
+- **Section Overview**
+    - In this section, we will learn the basic knowledge needed to start working with Entity Framework Core, a powerful and popular tool in the .NET ecosystem for working with databases.
+    - Main topics include:
+        - Understanding Data Models and how to create them with EF Core
+        - Understanding Database Context and its role
+        - Configuring database connections and choosing appropriate providers
+        - Getting familiar with Code First Development and Migrations
+        - Setting up a Console App project to practice EF Core
+    - The objectives of this section are to help you:
+        - Grasp basic concepts about Data Models and Database Context
+        - Learn how to configure and connect to databases with EF Core
+        - Understand the Code First Development process
+        - Create and manage Migrations
+        - Set up a development environment with EF Core
+
 This is an extremely powerful and popular tool in the .NET ecosystem for working with databases.
 
 - What are Data Models?

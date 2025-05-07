@@ -2,7 +2,7 @@
 
 **Working With Raw SQL, Views and Stored Procedures**
 
-- Section Overview
+- **Section Overview**
     
     We have covered how EF Core helps abstract database interaction through LINQ and object models. 
     

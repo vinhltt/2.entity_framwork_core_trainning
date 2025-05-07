@@ -2,8 +2,20 @@
 
 **Handling Database Changes and Migrations**
 
-- Section Overview
-    - In previous sections, we've learned how to define Data Models and use DbContext to query and modify data. But as your application evolves, your model will change - you'll add new entities, add/remove properties, change relationships... How do you update the database structure (schema) safely and in a controlled manner? The answer is **EF Core Migrations**.
+- **Section Overview**
+    - In this section, we will learn how to manage and apply database structure changes safely and in a controlled manner through EF Core Migrations.
+    - Main topics include:
+        - Understanding EF Core Migrations and how they work
+        - Adding new entities and updating database with migrations
+        - Using configuration files to manage connection strings
+        - Creating migration scripts for different environments
+        - Rolling back migrations and database changes
+    - The objectives of this section are to help you:
+        - Understand and effectively use EF Core Migrations
+        - Manage database schema changes safely
+        - Apply migrations to different environments
+        - Create and use migration scripts
+        - Handle situations requiring migration rollbacks
 - Review Entity Framework Core Migrations
     
     Let's quickly recap the core concepts of Migrations that we briefly mentioned earlier:

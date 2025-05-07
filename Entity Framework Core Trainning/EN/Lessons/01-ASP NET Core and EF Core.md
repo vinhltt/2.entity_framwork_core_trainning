@@ -2,9 +2,20 @@
 
 **ASP.NET Core and EF Core**
 
-- Section Overview
-    - [ASP.NET](http://asp.net/) Core for building web applications and APIs that interact with databases. [ASP.NET](http://asp.net/) Core is designed to work seamlessly with EF Core through mechanisms like Dependency Injection and Configuration.
-- How EF Core and ASP.NET Core Work
+- **Section Overview**
+    - In this section, we will explore how ASP.NET Core and Entity Framework Core work together to build web applications and APIs that interact with databases.
+    - Main topics include:
+        - Integrating EF Core with ASP.NET Core through Dependency Injection
+        - Managing DbContext lifecycle in web applications
+        - Configuring database connections in ASP.NET Core
+        - Handling common errors when working with EF Core in ASP.NET Core
+    - The objectives of this section are to help you:
+        - Understand how ASP.NET Core and EF Core integrate with each other
+        - Learn how to configure and use DbContext in web applications
+        - Master best practices when working with EF Core in ASP.NET Core
+
+
+**How EF Core and ASP.NET Core Work**
     
     The integration between EF Core and ASP.NET Core primarily relies on two core mechanisms of ASP.NET Core:
     
@@ -19,7 +30,8 @@
             - `DbContext` is not thread-safe, limiting it to a single request helps avoid multi-threading issues.
     - **Configuration:**
         - ASP.NET Core's configuration system (reading from `appsettings.json`, environment variables, user secrets...) is used to provide necessary information to the `DbContext`, most importantly the **connection string**.
-- Connect to the Database Context
+
+**Connect to the Database Context**
     
     This is the configuration step to make ASP.NET Core aware of your `DbContext` and how to create it.
     
@@ -121,7 +133,7 @@
     
     ```
     
-- Fixing EF Core Design Time Errors
+**Fixing EF Core Design Time Errors**
     
     When you run `dotnet ef` commands (e.g., `dotnet ef migrations add InitialCreate`, `dotnet ef database update`) in an ASP.NET Core environment, you might sometimes encounter errors. These commands need to be able to create a `DbContext` instance to read the model configuration, and they run in a different context than the actual running application.
     
@@ -185,7 +197,7 @@
                 }
                 ```
                 
-- Scaffolding Code with Visual Studio
+**Scaffolding Code with Visual Studio**
     
     Scaffolding is the process of automatically generating basic code (boilerplate code) for CRUD (Create, Read, Update, Delete) operations based on your model and `DbContext`. Visual Studio provides a visual tool for this.
     

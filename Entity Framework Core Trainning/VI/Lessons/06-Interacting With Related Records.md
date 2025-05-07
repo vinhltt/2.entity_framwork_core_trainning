@@ -1,7 +1,19 @@
 # Interacting With Related Records
 
-- Section Overview
-    - Sau khi đã nắm vững cách tạo model, truy vấn, thay đổi dữ liệu và quản lý schema bằng migrations, hôm nay chúng ta sẽ tập trung vào cách **tương tác với các bản ghi có liên quan** đến nhau trong database. Đây là cốt lõi của việc mô hình hóa dữ liệu trong thế giới thực.
+- **Section Overview**
+    - Trong section này, chúng ta sẽ tìm hiểu cách tương tác với các bản ghi có mối quan hệ với nhau trong database, một khía cạnh quan trọng của việc mô hình hóa dữ liệu trong thế giới thực.
+    - Các chủ đề chính bao gồm:
+        - Hiểu về các loại mối quan hệ trong database và EF Core
+        - Thiết lập và quản lý mối quan hệ One-to-Many
+        - Xem và quản lý diagram với EF Core Tools
+        - Thiết lập và quản lý mối quan hệ Many-to-Many
+        - Thiết lập và quản lý mối quan hệ One-to-One
+    - Mục tiêu của section này là giúp bạn:
+        - Hiểu và triển khai các loại mối quan hệ trong EF Core
+        - Sử dụng Navigation Properties và Foreign Keys hiệu quả
+        - Quản lý các mối quan hệ giữa các entities
+        - Áp dụng các best practices khi thiết kế mối quan hệ
+        - Sử dụng công cụ để trực quan hóa và quản lý mối quan hệ
 - Database Relationships and Entity Framework Core
     - **Trong Database:** Các mối quan hệ giữa các bảng thường được thể hiện bằng **khóa ngoại (Foreign Keys - FK)**. Một cột (hoặc nhiều cột) trong một bảng (bảng phụ thuộc - dependent table) tham chiếu đến khóa chính (Primary Key - PK) của một bảng khác (bảng chính - principal table).
     - **Trong EF Core:** Các mối quan hệ này được biểu diễn trong code C# bằng cách sử dụng:

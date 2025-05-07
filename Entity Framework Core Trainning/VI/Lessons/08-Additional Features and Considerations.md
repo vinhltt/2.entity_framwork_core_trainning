@@ -2,10 +2,21 @@
 
 **Additional Features and Considerations**
 
-- Section Overview
-    
-    Sau khi đã nắm vững các khái niệm nền tảng về mô hình hóa, truy vấn, thay đổi dữ liệu, migrations, làm việc với dữ liệu liên quan và cả SQL thô, hôm nay chúng ta sẽ khám phá một số tính năng nâng cao và các điểm cần lưu ý khác khi làm việc với EF Core. Những tính năng này giúp giải quyết các bài toán cụ thể và xây dựng ứng dụng tốt hơn.
-    
+- **Section Overview**
+    - Trong section này, chúng ta sẽ khám phá các tính năng nâng cao và những điểm cần lưu ý khi làm việc với Entity Framework Core để xây dựng ứng dụng tốt hơn.
+    - Các chủ đề chính bao gồm:
+        - Xử lý dữ liệu trước khi lưu thay đổi
+        - Làm việc với SQL Server Temporal Tables
+        - Kiểm tra dữ liệu với Data Annotations
+        - Cấu hình model với Pre-convention
+        - Các tính năng nâng cao khác của EF Core
+    - Mục tiêu của section này là giúp bạn:
+        - Hiểu và áp dụng các tính năng nâng cao của EF Core
+        - Tự động hóa các thao tác xử lý dữ liệu
+        - Quản lý lịch sử thay đổi dữ liệu
+        - Đảm bảo tính toàn vẹn của dữ liệu
+        - Tối ưu hóa cấu hình và hiệu suất ứng dụng
+
 - Manipulate Entries Before Saving Changes
     
     Đôi khi, bạn muốn tự động thực hiện một số hành động ngay trước khi các thay đổi được lưu vào database. Ví dụ phổ biến là tự động cập nhật các cột `CreatedAt` và `UpdatedAt`.

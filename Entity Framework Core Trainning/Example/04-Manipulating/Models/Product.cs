@@ -1,5 +1,3 @@
-using System;
-
 namespace Manipulating.Models
 {
     public class Product

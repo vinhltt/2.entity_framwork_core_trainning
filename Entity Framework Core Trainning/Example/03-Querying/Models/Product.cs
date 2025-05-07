@@ -1,5 +1,3 @@
-using System;
-
 namespace Querying.Models
 {
     public class Product

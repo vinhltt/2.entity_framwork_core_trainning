@@ -1,5 +1,3 @@
-using System;
-
 namespace Migrations.Models
 {
     public class Product

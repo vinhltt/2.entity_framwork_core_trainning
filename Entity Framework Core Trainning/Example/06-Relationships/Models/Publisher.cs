@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Relationships.Models
 {
     public class Publisher

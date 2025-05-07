@@ -1,5 +1,3 @@
-using System;
-
 namespace RawSQL.Models
 {
     public class Product

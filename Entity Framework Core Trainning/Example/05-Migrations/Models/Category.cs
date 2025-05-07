@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Migrations.Models
 {
     public class Category

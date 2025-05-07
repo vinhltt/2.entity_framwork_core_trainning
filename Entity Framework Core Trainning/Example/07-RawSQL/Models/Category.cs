@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace RawSQL.Models
 {
     public class Category

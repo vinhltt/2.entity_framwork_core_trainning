@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Manipulating.Models
 {
     public class Category

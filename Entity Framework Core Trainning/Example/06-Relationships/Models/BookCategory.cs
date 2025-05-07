@@ -1,3 +1,5 @@
+using Example.Relationships.Models;
+
 namespace Relationships.Models
 {
     public class BookCategory

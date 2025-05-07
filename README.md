@@ -1,0 +1,1 @@
+# entity_framwork_core_trainning

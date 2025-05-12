@@ -3,31 +3,31 @@
     "Name": "Example Profile",
     "Projects": [
       {
-        "Path": "02-GettingStarted\\02-GettingStarted.csproj",
+        "Path": "LessonDemo02\\LessonDemo02.csproj",
         "Action": "StartWithoutDebugging"
       },
       {
-        "Path": "03-Querying\\03-Querying.csproj",
+        "Path": "LessonDemo03\\LessonDemo03.csproj",
         "Action": "StartWithoutDebugging"
       },
       {
-        "Path": "04-Manipulating\\04-Manipulating.csproj",
+        "Path": "LessonDemo04\\LessonDemo04.csproj",
         "Action": "StartWithoutDebugging"
       },
       {
-        "Path": "05-Migrations\\05-Migrations.csproj",
+        "Path": "LessonDemo05\\LessonDemo05.csproj",
         "Action": "StartWithoutDebugging"
       },
       {
-        "Path": "06-Relationships\\06-Relationships.csproj",
+        "Path": "LessonDemo06\\LessonDemo06.csproj",
         "Action": "StartWithoutDebugging"
       },
       {
-        "Path": "07-RawSQL\\07-RawSQL.csproj",
+        "Path": "LessonDemo07\\LessonDemo07.csproj",
         "Action": "StartWithoutDebugging"
       },
       {
-        "Path": "08-AdditionalFeatures\\08-AdditionalFeatures.csproj",
+        "Path": "LessonDemo08\\LessonDemo08.csproj",
         "Action": "StartWithoutDebugging"
       }
     ]

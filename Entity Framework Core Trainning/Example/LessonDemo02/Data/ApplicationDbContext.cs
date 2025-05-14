@@ -1,7 +1,7 @@
-using _02_GettingStarted.Models;
+using LessonDemo02.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace _02_GettingStarted.Data
+namespace LessonDemo02.Data
 {
     public class ApplicationDbContext : DbContext
     {

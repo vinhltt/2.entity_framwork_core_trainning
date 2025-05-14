@@ -1,7 +1,7 @@
-using _03_Querying.Models;
+using LessonDemo03.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace _03_Querying.Data
+namespace LessonDemo03.Data
 {
     public class ApplicationDbContext : DbContext
     {

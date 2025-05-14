@@ -1,4 +1,4 @@
-namespace _03_Querying.Models
+namespace LessonDemo03.Models
 {
     public class Product
     {

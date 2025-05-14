@@ -1,4 +1,4 @@
-namespace _05_Migrations.Models
+namespace LessonDemo05.Models
 {
     public class Product
     {

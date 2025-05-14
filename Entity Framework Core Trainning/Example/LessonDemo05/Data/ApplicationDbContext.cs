@@ -1,7 +1,7 @@
-using _05_Migrations.Models;
+using LessonDemo05.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace _05_Migrations.Data
+namespace LessonDemo05.Data
 {
     public class ApplicationDbContext : DbContext
     {

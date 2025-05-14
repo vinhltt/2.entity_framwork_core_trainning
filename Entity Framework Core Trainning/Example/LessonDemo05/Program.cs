@@ -1,8 +1,8 @@
-using _05_Migrations.Data;
+using LessonDemo05.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace _05_Migrations
+namespace LessonDemo05
 {
     class Program
     {

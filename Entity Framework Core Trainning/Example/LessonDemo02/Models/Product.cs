@@ -1,4 +1,4 @@
-namespace _02_GettingStarted.Models
+namespace LessonDemo02.Models
 {
     public class Product
     {

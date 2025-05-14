@@ -1,8 +1,8 @@
-﻿using _02_GettingStarted.Data;
-using _02_GettingStarted.Models;
+﻿using LessonDemo02.Data;
+using LessonDemo02.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace _02_GettingStarted
+namespace LessonDemo02
 {
     class Program
     {

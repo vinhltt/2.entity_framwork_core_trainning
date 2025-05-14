@@ -1,8 +1,8 @@
-﻿using _03_Querying.Data;
+﻿using LessonDemo03.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace _03_Querying
+namespace LessonDemo03
 {
     class Program
     {

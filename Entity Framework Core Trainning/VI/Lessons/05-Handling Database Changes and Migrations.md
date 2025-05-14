@@ -23,7 +23,7 @@
     - **Mục đích:** Là cơ chế của EF Core để quản lý các thay đổi tuần tự đối với schema database, đồng bộ với những thay đổi trong code model (Entities và DbContext).
     - **Luồng làm việc cơ bản (Code First):**
         1. Thay đổi code model (thêm/sửa/xóa entity, property, relationship...).
-        2. Chạy lệnh `dotnet ef migrations add [TenMigration डिस्क्रिप्टिभ]` trong terminal tại thư mục project. Lệnh này so sánh model hiện tại với snapshot cuối cùng và tạo ra một file migration mới.
+        2. Chạy lệnh `dotnet ef migrations add [TenMigration ]` trong terminal tại thư mục project. Lệnh này so sánh model hiện tại với snapshot cuối cùng và tạo ra một file migration mới.
         3. Chạy lệnh `dotnet ef database update` để áp dụng các thay đổi trong migration (thực thi phương thức `Up()`) vào database được cấu hình.
     - **Các thành phần chính:**
         - **`Migration Files (Migrations/[Timestamp]_[TenMigration].cs):`** Chứa code C# với phương thức `Up()` (để áp dụng thay đổi) và `Down()` (để hoàn tác thay đổi).
